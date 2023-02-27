@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { names } from "src/global";
+import { useAppSelector } from "src/store/hooks";
 import theme from "src/theme";
 import { IconsDialogProps } from "./IconsDialog.types";
 
@@ -25,14 +25,15 @@ export const IconsDialog = ({
   const [icons, setIcons] = useState<string[]>([]);
   const [size, setSize] = useState(initialValues.size);
   const [picked, setPicked] = useState(initialValues.value);
+  const iconsList = useAppSelector((store) => store.slides.icons);
 
   useEffect(() => {
     if (!search) {
-      setIcons(names);
+      setIcons(iconsList);
       return;
     }
-    setIcons(names.filter((el) => el.includes(search)));
-  }, [search]);
+    setIcons(iconsList.filter((el) => el.includes(search)));
+  }, [search, iconsList]);
 
   const handleChangeSize = (_: Event, newValue: number | number[]) => {
     setSize(newValue as number);

@@ -1,9 +1,13 @@
 import { CssBaseline } from "@mui/material";
 import { useEffect } from "react";
 import { Route, Routes } from "react-router";
+import { getIconsNames } from "src/global";
 import { AddSlide, Home } from "src/pages";
 import { useAppDispatch } from "src/store/hooks";
-import { setState } from "src/store/reducers/slidesReducer/slidesReducer";
+import {
+  setIcons,
+  setState,
+} from "src/store/reducers/slidesReducer/slidesReducer";
 import {
   AppWrapper,
   ContentWrapper,
@@ -14,12 +18,17 @@ import {
 function App() {
   const dispatch = useAppDispatch();
 
+  const setIconsList = (icons: string[]) => {
+    dispatch(setIcons(icons));
+  };
+
   useEffect(() => {
+    getIconsNames(setIconsList);
     const state = localStorage.getItem("slides");
     if (state) {
       dispatch(setState(JSON.parse(state)));
     }
-  }, [dispatch]);
+  }, []);
 
   return (
     <AppWrapper>

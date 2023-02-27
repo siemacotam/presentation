@@ -44,10 +44,16 @@ export const slidesSlice = createSlice({
         slides: action.payload,
       };
     },
+    setIcons: (state, action: PayloadAction<string[]>) => {
+      return {
+        ...state,
+        icons: action.payload,
+      };
+    },
   },
 });
 
-export const { addSlide, deleteSlide, editSlide, setState } =
+export const { addSlide, deleteSlide, editSlide, setState, setIcons } =
   slidesSlice.actions;
 
 export const selectCount = (state: RootState) => state.slides;
