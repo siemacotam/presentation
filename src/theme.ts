@@ -5,18 +5,6 @@ let theme = createTheme({
     background: {
       default: "#F0F0F0",
     },
-    primary: {
-      light: "#F0FFFF",
-      main: "#0096FF",
-      dark: "#0047AB",
-      contrastText: "#fffbf8",
-    },
-    secondary: {
-      light: "#fffbf8",
-      main: "#fff4eb",
-      dark: "#fdd9bc",
-      contrastText: "#FA8220",
-    },
   },
   typography: {
     fontFamily:

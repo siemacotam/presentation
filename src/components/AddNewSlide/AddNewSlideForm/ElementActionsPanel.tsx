@@ -3,14 +3,9 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { Stack, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
+import { ElementActionsPanelProps } from "../AddNewSlide.types";
 
-interface ElementActionsPanelProps {
-  isFirst: boolean;
-  isLast: boolean;
-  changeOrder: (up: boolean) => void;
-  deleteElement: () => void;
-  openModal: () => void;
-}
+const iconSize = { fontSize: "18px" };
 
 export const ElementActionsPanel = ({
   isFirst,
@@ -21,19 +16,19 @@ export const ElementActionsPanel = ({
 }: ElementActionsPanelProps) => (
   <Stack direction="row" spacing={1}>
     <IconButton onClick={openModal}>
-      <ZoomInIcon sx={{ fontSize: "16px" }} />
+      <ZoomInIcon sx={iconSize} />
     </IconButton>
     <IconButton onClick={deleteElement}>
-      <DeleteIcon sx={{ fontSize: "16px" }} />
+      <DeleteIcon sx={iconSize} />
     </IconButton>
     {!isFirst && (
       <IconButton onClick={() => changeOrder(true)}>
-        <ArrowUpwardIcon sx={{ fontSize: "16px" }} />
+        <ArrowUpwardIcon sx={iconSize} />
       </IconButton>
     )}
     {!isLast && (
       <IconButton onClick={() => changeOrder(false)}>
-        <ArrowDownwardIcon sx={{ fontSize: "16px" }} />
+        <ArrowDownwardIcon sx={iconSize} />
       </IconButton>
     )}
   </Stack>

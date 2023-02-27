@@ -4,7 +4,12 @@ import { Route, Routes } from "react-router";
 import { AddSlide, Home } from "src/pages";
 import { useAppDispatch } from "src/store/hooks";
 import { setState } from "src/store/reducers/slidesReducer/slidesReducer";
-import { AppWrapper, HeaderTitle, StyledHeader } from "./App.styled";
+import {
+  AppWrapper,
+  ContentWrapper,
+  HeaderTitle,
+  StyledHeader,
+} from "./App.styled";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -14,20 +19,22 @@ function App() {
     if (state) {
       dispatch(setState(JSON.parse(state)));
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <AppWrapper>
+      <CssBaseline />
       <StyledHeader>
         <HeaderTitle>Presentation app</HeaderTitle>
       </StyledHeader>
-      <CssBaseline />
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="add" element={<AddSlide />} />
-        <Route path="edit/:id" element={<AddSlide edit />} />
-        <Route path="*" element={<Home />} />
-      </Routes>
+      <ContentWrapper>
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="add" element={<AddSlide />} />
+          <Route path="edit/:id" element={<AddSlide edit />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </ContentWrapper>
     </AppWrapper>
   );
 }

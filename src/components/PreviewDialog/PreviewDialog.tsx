@@ -12,6 +12,7 @@ import {
 import { Slide, getGridWidth } from "src/global";
 import CloseIcon from "@mui/icons-material/Close";
 import { SlideElement } from "../SlideElement";
+import { EmptyStateComponent } from "../EmptyStateComponent";
 
 interface PreviewDialogProps {
   slide: Slide;
@@ -34,22 +35,28 @@ export const PreviewDialog = ({
       </Toolbar>
     </AppBar>
     <DialogContent>
-      <Card variant="outlined">
-        <CardContent>
-          <Grid container mx="auto" width="100%" maxWidth="1200px" spacing={2}>
-            {slide.elements.map((el) => (
-              <Grid
-                key={el.id}
-                item
-                xs={12}
-                md={getGridWidth(slide.settings.perRow)}
-              >
-                <SlideElement element={el} />
-              </Grid>
-            ))}
-          </Grid>
-        </CardContent>
-      </Card>
+      <Grid item xs={12} mx="auto" width="100%" maxWidth="1200px">
+        <Card variant="outlined">
+          <CardContent>
+            <Grid container spacing={2}>
+              {slide.elements.length > 0 ? (
+                slide.elements.map((el) => (
+                  <Grid
+                    key={el.id}
+                    item
+                    xs={12}
+                    md={getGridWidth(slide.settings.perRow)}
+                  >
+                    <SlideElement element={el} />
+                  </Grid>
+                ))
+              ) : (
+                <EmptyStateComponent text="There are no elements to show. Please add some" />
+              )}
+            </Grid>
+          </CardContent>
+        </Card>
+      </Grid>
     </DialogContent>
   </Dialog>
 );

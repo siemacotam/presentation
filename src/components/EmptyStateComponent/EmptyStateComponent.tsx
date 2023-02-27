@@ -11,7 +11,7 @@ export const EmptyStateComponent = ({
   <Grid item xs={12}>
     <Card variant="outlined">
       <CardContent>
-        <Stack direction="row" alignItems="center" spacing={2}>
+        <Stack direction="row" alignItems="center" spacing={2} p={4}>
           <InfoIcon />
           <Typography>{text}</Typography>
         </Stack>

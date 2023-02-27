@@ -11,12 +11,10 @@ import {
 import { nanoid } from "@reduxjs/toolkit";
 import { useFormikContext } from "formik";
 import { useState } from "react";
-import { PreviewDialog } from "src/components/PreviewDialog";
 import { initialElement, Slide } from "src/global";
-import { AddElement } from "./AddElement";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { EmptyStateComponent } from "src/components/EmptyStateComponent";
+import { ErrorMessage, PreviewDialog } from "src/components";
 
 export const AddNewSlideForm = () => {
   const [openPreview, setOpenPreview] = useState(false);
@@ -39,10 +37,15 @@ export const AddNewSlideForm = () => {
     ]);
 
   return (
-    <Stack rowGap={2} mt={2}>
+    <Stack rowGap={2} my={3}>
       <Card variant="outlined">
         <CardContent>
           <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Typography component="span" variant="h5">
+                Main settings
+              </Typography>
+            </Grid>
             <Grid item xs={12} md={6}>
               <TextField
                 fullWidth
@@ -51,7 +54,9 @@ export const AddNewSlideForm = () => {
                 name="name"
                 onChange={handleChange}
               />
+              <ErrorMessage name="name" />
             </Grid>
+
             <Grid item xs={12} md={6}>
               <Typography>Elements per row </Typography>
               <Stack direction="row" spacing={2}>
@@ -87,14 +92,6 @@ export const AddNewSlideForm = () => {
           </Grid>
         </CardContent>
       </Card>
-
-      <Grid container rowGap={1}>
-        {elements.length > 0 ? (
-          elements.map((el) => <AddElement key={el.id} id={el.id} />)
-        ) : (
-          <EmptyStateComponent text="There are no elements yet" />
-        )}
-      </Grid>
       {openPreview && (
         <PreviewDialog
           slide={values}

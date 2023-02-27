@@ -6,25 +6,21 @@ import {
   DialogContent,
   DialogTitle,
   Slider,
+  Typography,
   Stack,
   TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Details, names } from "src/global";
-
-interface IconsDialogProps {
-  open: boolean;
-  handleClose: () => void;
-  handleIconPick: (value: string, size: number) => void;
-  initialValues: Details;
-}
+import { names } from "src/global";
+import theme from "src/theme";
+import { IconsDialogProps } from "./IconsDialog.types";
 
 export const IconsDialog = ({
   open,
   handleClose,
   handleIconPick,
   initialValues,
-}: IconsDialogProps) => {
+}: IconsDialogProps): JSX.Element => {
   const [search, setSearch] = useState("");
   const [icons, setIcons] = useState<string[]>([]);
   const [size, setSize] = useState(initialValues.size);
@@ -56,33 +52,46 @@ export const IconsDialog = ({
     >
       <DialogTitle>Pick icon</DialogTitle>
       <DialogContent dividers>
-        <TextField
-          fullWidth
-          label="Search by name"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <Slider
-          value={size}
-          step={10}
-          marks
-          min={30}
-          max={60}
-          onChange={handleChangeSize}
-        />
-        <Stack direction="row" flexWrap="wrap">
-          {icons.map((el) => (
-            <Box key={el} sx={{ background: picked === el ? "red" : "white" }}>
+        <Stack rowGap={2}>
+          <TextField
+            fullWidth
+            label="Search by name"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Typography>{size}px</Typography>
+            <Slider
+              value={size}
+              step={10}
+              marks
+              min={30}
+              max={60}
+              onChange={handleChangeSize}
+            />
+          </Stack>
+          <Stack direction="row" flexWrap="wrap">
+            {icons.map((el) => (
               <Box
-                component="span"
-                onClick={() => setPicked(el)}
-                fontSize={size}
-                className="material-icons"
+                key={el}
+                sx={{
+                  background:
+                    picked === el
+                      ? theme.palette.grey[300]
+                      : theme.palette.common.white,
+                }}
               >
-                {el}
+                <Box
+                  component="span"
+                  onClick={() => setPicked(el)}
+                  fontSize={size}
+                  className="material-icons"
+                >
+                  {el}
+                </Box>
               </Box>
-            </Box>
-          ))}
+            ))}
+          </Stack>
         </Stack>
       </DialogContent>
       <DialogActions>

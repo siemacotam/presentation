@@ -1,5 +1,5 @@
 import { Slide } from "src/global";
-import { HTMLSlide } from "./HTMLSlide";
+import { HTMLSlide } from "./components/HTMLSlide";
 
 export function exportSlideElement(slide: Slide) {
   const fileData = HTMLSlide({ slide });
